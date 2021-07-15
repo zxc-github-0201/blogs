@@ -37,8 +37,8 @@
        if (domEelement) {
          html2canvas(domElement,{
            allowTaint: true,		//解决图片跨域
-           scale: 1,				//解决scroll截图不全
-           height: element.scrollHeight,
+           scale: 2,		//清晰度，默认为2		
+           height: element.scrollHeight,	//解决scroll截图不全
            windowHeight: element.scrollHeight,
          }).then((canvas: any) => {
            setImageUrl(canvas.toDataURL("image/jpeg"));	//可转换为其他格式
@@ -95,6 +95,47 @@ http://tool.chinaz.com/tools/imgtobase       可以查看base64编码的图片
 解决图片跨域和scroll出现滚动条超出页面截图不全的问题
 
 ##### 还可以使用react-native-view-shot插件，这个插件是将页面截图，导入后遇到问题不能使用，待解决尝试。
+
+
+
+测试后发现html2canvas转换的图片在IOS端上方会出现空白部分，无法解决后使用dom-to-image实现。
+
+解决IOS上方空白需要将html2canvas回退版本
+
+```
+yarn add html2canvas@1.0.0-rc.3
+```
+
+这个版本可以正常显示
+
+##### 使用dom-to-image实现图片转化
+
+1. 首先安装依赖；
+
+   ```
+   yarn add dom-to-image
+   ```
+
+2. 进行图片转化；
+
+   ```
+    domtoimage.toPng(element).then((dataUrl: any) => {
+          let img = new Image();
+          img.src = dataUrl;
+          console.log("dataUrl", img.src);
+          setImageUrl(dataUrl);
+          document.body.appendChild(img);
+          ReactDom.findDOMNode(element).style.visibility = "hidden";
+        }).catch((error: any) => {
+          console.error("oops, something went wrong!", error);
+        });
+   ```
+
+
+
+这种方式的清晰度不如html2canvas。
+
+
 
 
 
