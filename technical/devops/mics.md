@@ -1,0 +1,4 @@
+- [/pause](https://stackoverflow.com/questions/48651269/what-are-the-pause-containers)
+- [docker 中 ps 的替代](https://stackoverflow.com/questions/26982274/ps-command-doesnt-work-in-docker-container)
+- [NPM / Error: EACCES: permission denied, scandir](https://stackoverflow.com/questions/70952903/npm-error-eacces-permission-denied-scandir)
+- [cra-devops-demo](https://repo.wolwobiotech.com/frontend/cra-autodevops)
